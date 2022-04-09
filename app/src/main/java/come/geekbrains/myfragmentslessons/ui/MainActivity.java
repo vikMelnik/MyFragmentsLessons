@@ -1,8 +1,10 @@
-package come.geekbrains.myfragmentslessons;
+package come.geekbrains.myfragmentslessons.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import come.geekbrains.myfragmentslessons.R;
 
 public class MainActivity extends AppCompatActivity {
 

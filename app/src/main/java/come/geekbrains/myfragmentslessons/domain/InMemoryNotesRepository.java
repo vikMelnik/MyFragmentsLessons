@@ -26,20 +26,20 @@ public class InMemoryNotesRepository implements NotesRepository{
   }
 
   @Override
-  public List<Notes> getAll() {
-    ArrayList<Notes> result = new ArrayList<>();
+  public List<Note> getAll() {
+    ArrayList<Note> result = new ArrayList<>();
 
-    result.add(new Notes(context.getString(R.string.note1)));
-    result.add(new Notes(context.getString(R.string.note2)));
-    result.add(new Notes(context.getString(R.string.note3)));
-    result.add(new Notes(context.getString(R.string.note4)));
-    result.add(new Notes(context.getString(R.string.note5)));
-    result.add(new Notes(context.getString(R.string.note6)));
+    result.add(new Note(context.getString(R.string.note1)));
+    result.add(new Note(context.getString(R.string.note2)));
+    result.add(new Note(context.getString(R.string.note3)));
+    result.add(new Note(context.getString(R.string.note4)));
+    result.add(new Note(context.getString(R.string.note5)));
+    result.add(new Note(context.getString(R.string.note6)));
 
     return result;
   }
 
   @Override
-  public void add(Notes notes) {
+  public void add(Note note) {
   }
 }

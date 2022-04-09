@@ -3,37 +3,37 @@ package come.geekbrains.myfragmentslessons.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Notes implements Parcelable {
+public class Note implements Parcelable {
 
   private String title;
   private String description;
   private int date_creation;
 
-  public Notes(String title) {
+  public Note(String title) {
     this.title = title;
   }
 
-  public Notes(String title, String description, int date_creation) {
+  public Note(String title, String description, int date_creation) {
     this.title = title;
     this.description = description;
     this.date_creation = date_creation;
   }
 
-  protected Notes(Parcel in) {
+  protected Note(Parcel in) {
     title = in.readString();
     description = in.readString();
     date_creation = in.readInt();
   }
 
-  public static final Creator<Notes> CREATOR = new Creator<Notes>() {
+  public static final Creator<Note> CREATOR = new Creator<Note>() {
     @Override
-    public Notes createFromParcel(Parcel in) {
-      return new Notes(in);
+    public Note createFromParcel(Parcel in) {
+      return new Note(in);
     }
 
     @Override
-    public Notes[] newArray(int size) {
-      return new Notes[size];
+    public Note[] newArray(int size) {
+      return new Note[size];
     }
   };
 
