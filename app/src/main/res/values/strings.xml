@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyFragmentsLessons</string>
+    <string name="note1">Заметка 1</string>
+    <string name="note2">Заметка 2</string>
+    <string name="note3">Заметка 3</string>
+    <string name="note4">Заметка 4</string>
+    <string name="note5">Заметка 5</string>
+    <string name="note6">Заметка 6</string>
 </resources>
