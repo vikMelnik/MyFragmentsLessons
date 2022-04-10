@@ -7,13 +7,9 @@ public class Note implements Parcelable {
 
   private String title;
   private String description;
-  private int date_creation;
+  private String date_creation;
 
-  public Note(String title) {
-    this.title = title;
-  }
-
-  public Note(String title, String description, int date_creation) {
+  public Note(String title, String description, String date_creation) {
     this.title = title;
     this.description = description;
     this.date_creation = date_creation;
@@ -22,7 +18,7 @@ public class Note implements Parcelable {
   protected Note(Parcel in) {
     title = in.readString();
     description = in.readString();
-    date_creation = in.readInt();
+    date_creation = in.readString();
   }
 
   public static final Creator<Note> CREATOR = new Creator<Note>() {
@@ -45,7 +41,7 @@ public class Note implements Parcelable {
     return description;
   }
 
-  public int getDate_creation() {
+  public String getDate_creation() {
     return date_creation;
   }
 
@@ -58,6 +54,6 @@ public class Note implements Parcelable {
   public void writeToParcel(Parcel parcel, int i) {
     parcel.writeString(title);
     parcel.writeString(description);
-    parcel.writeInt(date_creation);
+    parcel.writeString(date_creation);
   }
 }

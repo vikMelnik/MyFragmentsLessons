@@ -1,5 +1,7 @@
 package come.geekbrains.myfragmentslessons.ui;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,17 @@ import come.geekbrains.myfragmentslessons.R;
 import come.geekbrains.myfragmentslessons.domain.InMemoryNotesRepository;
 import come.geekbrains.myfragmentslessons.domain.Note;
 
+
 public class NotesListFragment extends Fragment {
+
+  public static final String NOTES_CLICKED_KEY = "NOTES_CLICKED_KEY";
+  public static final String SELECTED_NOTE = "SELECTED_NOTE";
+
+
+  @Override
+  public void onAttach(@NonNull Context context) {
+    super.onAttach(context);
+  }
 
 
 
@@ -34,23 +46,29 @@ public class NotesListFragment extends Fragment {
     List<Note> notes = InMemoryNotesRepository.getInstance(requireContext()).getAll();
     LinearLayout container = view.findViewById(R.id.container);
 
-    for (Note note: notes){
+    for (Note note : notes) {
 
-      View itemView = getLayoutInflater().inflate(R.layout.item_note, container,false);
-
+      View itemView = getLayoutInflater().inflate(R.layout.item_note, container, false);
       itemView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
+          if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(SELECTED_NOTE, note);
+            getParentFragmentManager()
+                    .setFragmentResult(NOTES_CLICKED_KEY, bundle);
+
+          }else {
+
+            NoteDetailActivity.show(requireContext(), note);
+
+          }
         }
       });
-
-
-
-
       TextView title = itemView.findViewById(R.id.title);
       title.setText(note.getTitle());
-
       container.addView(itemView);
 
 
