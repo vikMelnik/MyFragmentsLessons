@@ -29,15 +29,14 @@ public class NoteDetailFragment extends Fragment {
     super(R.layout.fragment_note_detail);
   }
 
-  private EditText date_creation;
+  private EditText creationDate;
   private TextView title;
   private EditText description;
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
-    date_creation = view.findViewById(R.id.date_creation);
+    creationDate = view.findViewById(R.id.date_creation);
     title = view.findViewById(R.id.title);
     description = view.findViewById(R.id.description);
     getParentFragmentManager()
@@ -48,22 +47,16 @@ public class NoteDetailFragment extends Fragment {
                         Note note = result.getParcelable(NotesListFragment.SELECTED_NOTE);
                         show(note);
                       }
-
-
                     });
-    if (getArguments() != null && getArguments().containsKey(ARG_NOTE)){
-
+    if (getArguments() != null && getArguments().containsKey(ARG_NOTE)) {
       Note note = getArguments().getParcelable(ARG_NOTE);
-
       show(note);
     }
-
   }
-  private void show(Note note) {
 
+  private void show(Note note) {
     title.setText(note.getTitle());
-    date_creation.setText(note.getDate_creation());
+    creationDate.setText(note.getCreationDate());
     description.setText(note.getDescription());
   }
-
 }
