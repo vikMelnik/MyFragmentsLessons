@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFragmentsLessons">
         <activity
-            android:name=".ui.NoteDetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>

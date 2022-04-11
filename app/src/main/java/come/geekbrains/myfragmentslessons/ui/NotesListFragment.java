@@ -32,7 +32,6 @@ public class NotesListFragment extends Fragment {
   }
 
 
-
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,28 +41,25 @@ public class NotesListFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
     List<Note> notes = InMemoryNotesRepository.getInstance(requireContext()).getAll();
     LinearLayout container = view.findViewById(R.id.container);
-
     for (Note note : notes) {
-
       View itemView = getLayoutInflater().inflate(R.layout.item_note, container, false);
       itemView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
-          if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-
+          if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Bundle bundle = new Bundle();
             bundle.putParcelable(SELECTED_NOTE, note);
             getParentFragmentManager()
                     .setFragmentResult(NOTES_CLICKED_KEY, bundle);
 
-          }else {
-
-            NoteDetailActivity.show(requireContext(), note);
-
+          } else {
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, NoteDetailFragment.newInstance(note))
+                    .addToBackStack("details")
+                    .commit();
           }
         }
       });
