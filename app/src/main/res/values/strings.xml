@@ -24,4 +24,9 @@
     <string name="details">Detals</string>
     <string name="dateCreation">Дата создания</string>
     <string name="descriptionDetails">Подробное описание</string>
+    <string name="action_search">Search</string>
+    <string name="action_sorted">Sorted</string>
+    <string name="action_add">Add</string>
+    <string name="action_share">Share</string>
+    <string name="search_hint">Поиск</string>
 </resources>

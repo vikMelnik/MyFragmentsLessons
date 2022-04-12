@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
@@ -36,16 +38,21 @@ public class NoteDetailFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
+    Toolbar toolbar = view.findViewById(R.id.toolbar);
+
     creationDate = view.findViewById(R.id.date_creation);
     title = view.findViewById(R.id.title);
     description = view.findViewById(R.id.description);
-    view.findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
+
+   toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         getParentFragmentManager()
                 .popBackStack();
       }
     });
+
     creationDate.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
