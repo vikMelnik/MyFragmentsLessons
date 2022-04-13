@@ -22,6 +22,7 @@ import java.util.List;
 import come.geekbrains.myfragmentslessons.R;
 import come.geekbrains.myfragmentslessons.domain.InMemoryNotesRepository;
 import come.geekbrains.myfragmentslessons.domain.Note;
+import come.geekbrains.myfragmentslessons.domain.ToolbarHolder;
 
 
 public class NotesListFragment extends Fragment {
@@ -46,7 +47,13 @@ public class NotesListFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
     Toolbar toolbar = view.findViewById(R.id.toolbar);
+
+    if (requireActivity() instanceof ToolbarHolder) {
+      ((ToolbarHolder)requireActivity()).setToolbar(toolbar);
+    }
+
     toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
       @Override
       public boolean onMenuItemClick(MenuItem item) {

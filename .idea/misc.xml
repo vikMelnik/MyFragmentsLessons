@@ -3,15 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.163" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/drawable/ic_launcher_background.xml" value="0.163" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.163" />
         <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout-land/fragment_note_detail.xml" value="0.2942708333333333" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout-land/fragment_notes_list.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout/activity_detail.xml" value="0.3307291666666667" />
         <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout/activity_main.xml" value="0.3307291666666667" />
         <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout/fragment_date.xml" value="0.3307291666666667" />
         <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout/fragment_description.xml" value="0.3307291666666667" />
-        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout/fragment_note_detail.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout/fragment_note_detail.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout/fragment_notes_list.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout/item_nav_header.xml" value="0.3307291666666667" />
         <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/layout/item_note.xml" value="0.3307291666666667" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/menu/menu_details.xml" value="0.3307291666666667" />
         <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/menu/menu_main.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/menu/menu_nav_drawer.xml" value="0.3307291666666667" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/menu/menu_note_details.xml" value="0.3307291666666667" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/menu/menu_note_list.xml" value="0.3307291666666667" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.163" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/mipmap-anydpi-v26/ic_launcher1.png.xml" value="0.163" />
+        <entry key="..\:/AndroidStudioProjects/Android-2022/Android-1/Lesson-1/MyFragmentsLessons/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.163" />
       </map>
     </option>
   </component>

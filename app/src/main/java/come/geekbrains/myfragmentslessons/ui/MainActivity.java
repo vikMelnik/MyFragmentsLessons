@@ -1,8 +1,10 @@
 package come.geekbrains.myfragmentslessons.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,19 +12,44 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import come.geekbrains.myfragmentslessons.R;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+import come.geekbrains.myfragmentslessons.R;
+import come.geekbrains.myfragmentslessons.domain.ToolbarHolder;
+
+public class MainActivity extends AppCompatActivity implements ToolbarHolder {
+
+  private DrawerLayout drawerLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    initToolbar();
-  }
-  private void initToolbar() {
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
 
+    drawerLayout = findViewById(R.id.drawer);
+
+    NavigationView navigationView = findViewById(R.id.navigation);
+
+
+    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+      @Override
+      public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+      }
+    });
+
+  }
+
+  @Override
+  public void setToolbar(Toolbar toolbar) {
+    ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.drawer_open,
+            R.string.drawer_close);
+
+    drawerLayout.addDrawerListener(actionBarDrawerToggle);
+    actionBarDrawerToggle.syncState();
   }
 }

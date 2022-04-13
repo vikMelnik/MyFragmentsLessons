@@ -21,6 +21,8 @@
     <string name="date4" />
     <string name="date5" />
     <string name="date6" />
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
     <string name="details">Detals</string>
     <string name="dateCreation">Дата создания</string>
     <string name="descriptionDetails">Подробное описание</string>
@@ -29,4 +31,8 @@
     <string name="action_add">Add</string>
     <string name="action_share">Share</string>
     <string name="search_hint">Поиск</string>
+    <string name="about_app">О приложении</string>
+    <string name="preferences">Настройки</string>
+    <string name="owner">Viktor Melnyk</string>
+    <string name="address">Kurchatova street</string>
 </resources>
