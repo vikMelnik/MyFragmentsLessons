@@ -3,6 +3,7 @@ package come.geekbrains.myfragmentslessons.ui;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,14 +38,10 @@ public class NoteDetailFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
     Toolbar toolbar = view.findViewById(R.id.toolbar);
-
-
     creationDate = view.findViewById(R.id.date_creation);
     title = view.findViewById(R.id.title);
     description = view.findViewById(R.id.description);
-
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -55,10 +52,10 @@ public class NoteDetailFragment extends Fragment {
     creationDate.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        newCreateFragment(new DateFragment());
+        Toast.makeText(requireContext(), "Data", Toast.LENGTH_SHORT).show();
+
       }
     });
-
     description.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {

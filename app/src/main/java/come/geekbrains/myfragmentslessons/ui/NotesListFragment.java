@@ -61,6 +61,15 @@ public class NotesListFragment extends Fragment {
           case R.id.action_search:
             Toast.makeText(requireContext(), "search", Toast.LENGTH_SHORT).show();
             return true;
+          case R.id.action_sorted:
+            Toast.makeText(requireContext(), "sorted", Toast.LENGTH_SHORT).show();
+            return true;
+          case R.id.action_add:
+            Toast.makeText(requireContext(), "add", Toast.LENGTH_SHORT).show();
+            return true;
+          case R.id.action_share:
+            Toast.makeText(requireContext(), "share", Toast.LENGTH_SHORT).show();
+            return true;
         }
           return false;
         }
