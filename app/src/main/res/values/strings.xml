@@ -7,8 +7,8 @@
     <string name="note5">Заметка 5</string>
     <string name="note6">Заметка 6</string>
     <string name="notes">Notes</string>
-    <string name="description">Описание</string>
-    <string name="date">Дата создания заметки</string>
+    <string name="description">Description</string>
+    <string name="date">Date of creation</string>
     <string name="description1" />
     <string name="description2" />
     <string name="description3" />
@@ -21,7 +21,22 @@
     <string name="date4" />
     <string name="date5" />
     <string name="date6" />
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
     <string name="details">Detals</string>
     <string name="dateCreation">Дата создания</string>
     <string name="descriptionDetails">Подробное описание</string>
+    <string name="action_search">Search</string>
+    <string name="action_sorted">Sorted</string>
+    <string name="action_add">Add</string>
+    <string name="action_share">Share</string>
+    <string name="search_hint">Search</string>
+    <string name="about_app">About application</string>
+    <string name="preferences">Preferences</string>
+    <string name="owner">Viktor Melnyk</string>
+    <string name="address">Kurchatova street</string>
+    <string name="action_color">Choosen color</string>
+    <string name="action_style">Choosen style</string>
+    <string name="action_theme">Choosen theme</string>
+    <string name="action_etc">Choosen etc.</string>
 </resources>

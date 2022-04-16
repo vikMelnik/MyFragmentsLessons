@@ -2,16 +2,18 @@ package come.geekbrains.myfragmentslessons.ui;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
 import come.geekbrains.myfragmentslessons.R;
 import come.geekbrains.myfragmentslessons.domain.Note;
+import come.geekbrains.myfragmentslessons.domain.ToolbarHolder;
 
 public class NoteDetailFragment extends Fragment {
 
@@ -36,10 +38,11 @@ public class NoteDetailFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    Toolbar toolbar = view.findViewById(R.id.toolbar);
     creationDate = view.findViewById(R.id.date_creation);
     title = view.findViewById(R.id.title);
     description = view.findViewById(R.id.description);
-    view.findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
+    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         getParentFragmentManager()
@@ -49,22 +52,17 @@ public class NoteDetailFragment extends Fragment {
     creationDate.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        getParentFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new DateFragment())
-                .addToBackStack("details")
-                .commit();
+        Toast.makeText(requireContext(), "Data", Toast.LENGTH_SHORT).show();
+
       }
     });
     description.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        getParentFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new DescriptionFragment())
-                .addToBackStack("details")
-                .commit();
+        newCreateFragment(new DescriptionFragment());
+
       }
+
     });
     getParentFragmentManager()
             .setFragmentResultListener(NotesListFragment.NOTES_CLICKED_KEY, getViewLifecycleOwner()
@@ -85,5 +83,13 @@ public class NoteDetailFragment extends Fragment {
     title.setText(note.getTitle());
     creationDate.setText(note.getCreationDate());
     description.setText(note.getDescription());
+  }
+
+  private void newCreateFragment(Fragment fragment) {
+    getParentFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack("details")
+            .commit();
   }
 }

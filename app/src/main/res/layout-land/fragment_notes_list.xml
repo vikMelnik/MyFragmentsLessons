@@ -13,7 +13,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            app:menu="@menu/menu_note_list"
             app:title="@string/notes">
         </com.google.android.material.appbar.MaterialToolbar>
 
