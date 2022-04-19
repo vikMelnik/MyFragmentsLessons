@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -42,9 +40,17 @@ public class MainActivity extends AppCompatActivity implements ToolbarHolder {
                     .commit();
             drawerLayout.close();
             return true;
+          case R.id.action_exit:
+
+            MyDialogFragment dialogFragment = new MyDialogFragment(MainActivity.this);
+            dialogFragment.createDialog(MainActivity.this);
+            //finish();
+            drawerLayout.close();
+            return true;
         }
         return false;
       }
+
     });
   }
 
