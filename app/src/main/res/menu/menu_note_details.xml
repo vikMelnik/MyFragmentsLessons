@@ -11,5 +11,11 @@
         android:icon="@drawable/ic_baseline_share_24"
         android:title="@string/action_share"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_exit"
+        android:icon="@drawable/ic_baseline_close_24"
+        android:title="@string/exit"
+        app:showAsAction="ifRoom"/>
+
 
 </menu>

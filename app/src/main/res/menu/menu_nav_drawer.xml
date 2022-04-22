@@ -10,4 +10,9 @@
         android:icon="@drawable/ic_baseline_construction_24"
         android:title="@string/preferences" />
 
+    <item
+        android:id="@+id/action_exit"
+        android:icon="@drawable/ic_baseline_close_24"
+        android:title="@string/exit" />
+
 </menu>

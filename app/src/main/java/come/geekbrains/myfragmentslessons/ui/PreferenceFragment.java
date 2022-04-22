@@ -20,9 +20,7 @@ public class PreferenceFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
     Toolbar toolbar = view.findViewById(R.id.toolbar);
-
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -30,11 +28,8 @@ public class PreferenceFragment extends Fragment {
                 .popBackStack();
       }
     });
-
-
   }
-
-  }
+}
 
 
 

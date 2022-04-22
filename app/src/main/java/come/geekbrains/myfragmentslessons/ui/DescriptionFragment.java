@@ -7,7 +7,6 @@ import come.geekbrains.myfragmentslessons.R;
 public class DescriptionFragment extends Fragment {
 
   public DescriptionFragment() {
-
     super(R.layout.fragment_description);
   }
 }

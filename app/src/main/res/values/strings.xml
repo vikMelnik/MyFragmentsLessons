@@ -39,4 +39,7 @@
     <string name="action_style">Choosen style</string>
     <string name="action_theme">Choosen theme</string>
     <string name="action_etc">Choosen etc.</string>
+    <string name="exit">Exit</string>
+    <string name="message">Message</string>
+    <string name="dialog_msg">Are you sure to want to exit</string>
 </resources>
