@@ -1,4 +1,4 @@
-package come.geekbrains.myfragmentslessons.ui;
+package come.geekbrains.myfragmentslessons.newer.uicard;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,11 +12,11 @@ import come.geekbrains.myfragmentslessons.R;
 public class MyDialogFragment extends AlertDialog {
   AlertDialog.Builder dialog;
 
-  protected MyDialogFragment(@NonNull Context context) {
+  public MyDialogFragment(@NonNull Context context) {
     super(context);
   }
 
-  protected void createDialog(Context context) {
+  public void createDialog(Context context) {
     dialog = new AlertDialog.Builder(context);
     dialog.setIcon(R.drawable.img5);
     dialog.setTitle(R.string.app_name);
