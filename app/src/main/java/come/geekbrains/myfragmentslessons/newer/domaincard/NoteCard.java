@@ -4,16 +4,23 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 
 import java.util.Date;
 
 public class NoteCard implements Parcelable {
 
   private String id;
-  private int title; // заголовок
-  private int description; // описание
+
+  private final @StringRes
+  int title; // заголовок
+
+  private final @StringRes
+  int description; // описание
+
   private final @DrawableRes
   int picture; // изображение
+
   private Date creationDate; // дата создания
 
 

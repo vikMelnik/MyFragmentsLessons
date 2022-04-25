@@ -29,6 +29,10 @@ public class InMemoryCardNotesRepository implements NotesCardRepository{
             R.drawable.oceans, new Date()));
     data.add(new NoteCard(UUID.randomUUID().toString(),(R.string.title6),(R.string.description6),
             R.drawable.space, new Date()));
+    for (int i = 0; i < 100; i ++){
+      data.add(new NoteCard(UUID.randomUUID().toString(),(R.string.title3),(R.string.description3),
+              R.drawable.cartoon, new Date()));
+    }
 
   }
   @Override
