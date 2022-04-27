@@ -1,4 +1,4 @@
-package come.geekbrains.myfragmentslessons.domain;
+package come.geekbrains.myfragmentslessons.newer.domaincard;
 
 import androidx.appcompat.widget.Toolbar;
 

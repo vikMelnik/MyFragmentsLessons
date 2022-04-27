@@ -20,6 +20,11 @@ import come.geekbrains.myfragmentslessons.newer.domaincard.NoteCard;
 
 public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.NotesCardViewHolder> {
 
+  public int addNote(NoteCard noteCard) {
+    data.add(noteCard);
+    return data.size() - 1;
+  }
+
   interface OnNoteCardClicked {
     void onNoteCardClicked(NoteCard noteCard);
   }
@@ -56,7 +61,6 @@ public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.Note
     holder.title.setText(noteCard.getTitle());
     holder.description.setText(noteCard.getDescription());
     holder.imageView.setImageResource(noteCard.getPicture());
-    ;
     holder.createdata.setText(mSimpleDateFormat.format(noteCard.getCreationDate()));
   }
 
@@ -81,8 +85,7 @@ public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.Note
       itemView.findViewById(R.id.card_view).setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          if (noteClicked != null){
-
+          if (noteClicked != null) {
             int clickedPosition = getAdapterPosition();
             noteClicked.onNoteCardClicked(data.get(clickedPosition));
           }

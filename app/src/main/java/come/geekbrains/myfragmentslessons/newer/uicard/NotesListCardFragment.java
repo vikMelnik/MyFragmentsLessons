@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,16 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import come.geekbrains.myfragmentslessons.R;
-import come.geekbrains.myfragmentslessons.domain.ToolbarHolder;
 import come.geekbrains.myfragmentslessons.newer.Dependencies;
+import come.geekbrains.myfragmentslessons.newer.domaincard.Callback;
 import come.geekbrains.myfragmentslessons.newer.domaincard.NoteCard;
+import come.geekbrains.myfragmentslessons.newer.domaincard.ToolbarHolder;
 
 
 public class NotesListCardFragment extends Fragment {
 
   public static final String NOTES_CLICKED_KEY = "NOTES_CLICKED_KEY";
   public static final String SELECTED_NOTE = "SELECTED_NOTE";
-
+  NotesCardAdapter notesCardAdapter = new NotesCardAdapter();
 
   public NotesListCardFragment() {
     super(R.layout.fragment_notes_list_recycler);
@@ -51,6 +54,18 @@ public class NotesListCardFragment extends Fragment {
             Toast.makeText(requireContext(), "sorted", Toast.LENGTH_SHORT).show();
             return true;
           case R.id.action_add:
+
+            Dependencies.NOTES_CARD_REPOSITORY.addNote("Title 8", "Descriptions 8", new Callback<NoteCard>() {
+
+              @Override
+              public void onSuccess(NoteCard data) {
+
+              }
+
+              @Override
+              public void onError(Throwable exception) {
+              }
+            });
             Toast.makeText(requireContext(), "add", Toast.LENGTH_SHORT).show();
             return true;
           case R.id.action_share:
@@ -69,7 +84,7 @@ public class NotesListCardFragment extends Fragment {
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL);
     dividerItemDecoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_divider));
     recyclerView.addItemDecoration(dividerItemDecoration);
-    NotesCardAdapter notesCardAdapter = new NotesCardAdapter();
+
     notesCardAdapter.setNoteClicked(new NotesCardAdapter.OnNoteCardClicked() {
       @Override
       public void onNoteCardClicked(NoteCard noteCard) {
@@ -85,13 +100,41 @@ public class NotesListCardFragment extends Fragment {
                   .addToBackStack("details")
                   .commit();
         }
-
       }
     });
     recyclerView.setAdapter(notesCardAdapter);
-    List<NoteCard> notes = Dependencies.NOTES_CARD_REPOSITORY.getAll();
-    notesCardAdapter.setData(notes);
-    notesCardAdapter.notifyDataSetChanged();
+    getParentFragmentManager()
+            .setFragmentResultListener(AddNoteBottomSheetDialogFragment.ADD_KEY_RESULT, getViewLifecycleOwner(), new FragmentResultListener() {
+              @Override
+              public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                NoteCard noteCard = result.getParcelable(AddNoteBottomSheetDialogFragment.ARG_NOTE);
+                int index = notesCardAdapter.addNote(noteCard);
+                notesCardAdapter.notifyItemInserted(index);
+                recyclerView.smoothScrollToPosition(index);
+              }
+            });
+    view.findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        new AddNoteBottomSheetDialogFragment()
+                .show(getParentFragmentManager(), "AddNoteBottomSheetDialogFragment");
+      }
+    });
+    ProgressBar progressBar = view.findViewById(R.id.progress);
+    progressBar.setVisibility(View.VISIBLE);
+    Dependencies.NOTES_CARD_REPOSITORY.getAll(new Callback<List<NoteCard>>() {
+      @Override
+      public void onSuccess(List<NoteCard> data) {
+        notesCardAdapter.setData(data);
+        notesCardAdapter.notifyDataSetChanged();
+        progressBar.setVisibility(View.GONE);
+      }
+
+      @Override
+      public void onError(Throwable exception) {
+        progressBar.setVisibility(View.GONE);
+      }
+    });
 
 
   }
