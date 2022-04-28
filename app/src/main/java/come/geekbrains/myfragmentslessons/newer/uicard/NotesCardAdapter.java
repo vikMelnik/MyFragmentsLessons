@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
@@ -20,28 +22,45 @@ import come.geekbrains.myfragmentslessons.newer.domaincard.NoteCard;
 
 public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.NotesCardViewHolder> {
 
-  public int addNote(NoteCard noteCard) {
-    data.add(noteCard);
-    return data.size() - 1;
+  public OnNoteCardClicked getNoteClicked() {
+    return noteClicked;
+  }
+
+  private Fragment fragment;
+
+  public NotesCardAdapter(Fragment fragment) {
+    this.fragment = fragment;
+  }
+
+  private OnNoteCardClicked noteClicked;
+
+  private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("dd:MM, HH:mm", Locale.getDefault());
+
+  private List<NoteCard> data = new ArrayList<>();
+
+  public void removeNote(NoteCard selectedNote) {
+    data.remove(selectedNote);
+  }
+
+  public void replaceNote(NoteCard note, int selectedPosition) {
+    data.set(selectedPosition, note);
   }
 
   interface OnNoteCardClicked {
     void onNoteCardClicked(NoteCard noteCard);
+
+    void onNoteLongClicked(NoteCard noteCard, int position);
   }
 
   public void setNoteClicked(OnNoteCardClicked noteClicked) {
     this.noteClicked = noteClicked;
   }
 
-  public OnNoteCardClicked getNoteClicked() {
-    return noteClicked;
+  public int addNote(NoteCard noteCard) {
+    data.add(noteCard);
+    return data.size() - 1;
   }
 
-  private OnNoteCardClicked noteClicked;
-
-
-  private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("dd:MM, HH:mm", Locale.getDefault());
-  private List<NoteCard> data = new ArrayList<>();
 
   public void setData(Collection<NoteCard> noteCards) {
     data.addAll(noteCards);
@@ -82,13 +101,26 @@ public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.Note
       imageView = itemView.findViewById(R.id.imageView);
       description = itemView.findViewById(R.id.description);
       createdata = itemView.findViewById(R.id.create_data);
-      itemView.findViewById(R.id.card_view).setOnClickListener(new View.OnClickListener() {
+      CardView cardView = itemView.findViewById(R.id.card_view);
+      fragment.registerForContextMenu(cardView);
+      cardView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           if (noteClicked != null) {
             int clickedPosition = getAdapterPosition();
             noteClicked.onNoteCardClicked(data.get(clickedPosition));
           }
+        }
+      });
+      cardView.setOnLongClickListener(new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+          cardView.showContextMenu();
+          if (noteClicked != null) {
+            int clickedPosition = getAdapterPosition();
+            noteClicked.onNoteLongClicked(data.get(clickedPosition), clickedPosition);
+          }
+          return true;
         }
       });
     }

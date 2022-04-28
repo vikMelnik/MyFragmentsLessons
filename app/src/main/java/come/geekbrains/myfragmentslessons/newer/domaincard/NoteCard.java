@@ -7,6 +7,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class NoteCard implements Parcelable {
 
@@ -81,5 +82,18 @@ public class NoteCard implements Parcelable {
     parcel.writeString(title);
     parcel.writeString(description);
     parcel.writeInt(picture);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NoteCard noteCard = (NoteCard) o;
+    return picture == noteCard.picture && Objects.equals(id, noteCard.id) && Objects.equals(title, noteCard.title) && Objects.equals(description, noteCard.description) && Objects.equals(creationDate, noteCard.creationDate);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, title, description, picture, creationDate);
   }
 }

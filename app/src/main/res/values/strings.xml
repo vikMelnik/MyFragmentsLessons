@@ -47,7 +47,8 @@
     <string name="notes_list">Notes</string>
     <string name="title">Title</string>
     <string name="save">Save</string>
-
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
 
 
 </resources>

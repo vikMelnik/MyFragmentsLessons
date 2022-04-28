@@ -90,9 +90,55 @@ public class InMemoryCardNotesRepository implements NotesCardRepository{
 
   @Override
   public void removeNote(NoteCard note, Callback<Void> callback) {
+    mExecutor.execute(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+
+        data.remove(note);
+
+        mHandler.post(new Runnable() {
+          @Override
+          public void run() {
+            callback.onSuccess(null);
+          }
+        });
+      }
+    });
+
   }
 
   @Override
   public void updateNote(NoteCard note, String title, String message, Callback<NoteCard> callback) {
+
+    mExecutor.execute(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+
+        NoteCard newNoteCard = new NoteCard(note.getId(),title,message,
+                R.drawable.img5, note.getCreationDate());
+
+        int index = data.indexOf(note);
+
+
+        data.set(index, newNoteCard);
+
+        mHandler.post(new Runnable() {
+          @Override
+          public void run() {
+            callback.onSuccess(newNoteCard);
+          }
+        });
+      }
+    });
   }
 }

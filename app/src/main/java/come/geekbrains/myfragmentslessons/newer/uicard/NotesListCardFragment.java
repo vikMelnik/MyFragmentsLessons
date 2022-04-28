@@ -2,9 +2,12 @@ package come.geekbrains.myfragmentslessons.newer.uicard;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,9 +32,14 @@ import come.geekbrains.myfragmentslessons.newer.domaincard.ToolbarHolder;
 
 public class NotesListCardFragment extends Fragment {
 
+  private NoteCard selectedNote;
+  private int selectedPosition;
+  private ProgressBar progressBar;
+  private NotesCardAdapter notesCardAdapter;
+
   public static final String NOTES_CLICKED_KEY = "NOTES_CLICKED_KEY";
   public static final String SELECTED_NOTE = "SELECTED_NOTE";
-  NotesCardAdapter notesCardAdapter = new NotesCardAdapter();
+
 
   public NotesListCardFragment() {
     super(R.layout.fragment_notes_list_recycler);
@@ -54,12 +63,10 @@ public class NotesListCardFragment extends Fragment {
             Toast.makeText(requireContext(), "sorted", Toast.LENGTH_SHORT).show();
             return true;
           case R.id.action_add:
-
             Dependencies.NOTES_CARD_REPOSITORY.addNote("Title 8", "Descriptions 8", new Callback<NoteCard>() {
 
               @Override
               public void onSuccess(NoteCard data) {
-
               }
 
               @Override
@@ -81,10 +88,17 @@ public class NotesListCardFragment extends Fragment {
     RecyclerView recyclerView = view.findViewById(R.id.notes_list_rc);
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
     recyclerView.setLayoutManager(layoutManager);
+
+    DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
+    defaultItemAnimator.setAddDuration(3000L);
+    recyclerView.setItemAnimator(defaultItemAnimator);
+
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL);
     dividerItemDecoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_divider));
+
     recyclerView.addItemDecoration(dividerItemDecoration);
 
+    notesCardAdapter = new NotesCardAdapter(this);
     notesCardAdapter.setNoteClicked(new NotesCardAdapter.OnNoteCardClicked() {
       @Override
       public void onNoteCardClicked(NoteCard noteCard) {
@@ -101,6 +115,13 @@ public class NotesListCardFragment extends Fragment {
                   .commit();
         }
       }
+
+      @Override
+      public void onNoteLongClicked(NoteCard noteCard, int position) {
+        selectedNote = noteCard;
+        selectedPosition = position;
+
+      }
     });
     recyclerView.setAdapter(notesCardAdapter);
     getParentFragmentManager()
@@ -113,14 +134,27 @@ public class NotesListCardFragment extends Fragment {
                 recyclerView.smoothScrollToPosition(index);
               }
             });
+
+    getParentFragmentManager()
+            .setFragmentResultListener(AddNoteBottomSheetDialogFragment.UPDATE_KEY_RESULT, getViewLifecycleOwner(), new FragmentResultListener() {
+              @Override
+              public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                NoteCard note = result.getParcelable(AddNoteBottomSheetDialogFragment.ARG_NOTE);
+
+                notesCardAdapter.replaceNote(note, selectedPosition);
+
+                notesCardAdapter.notifyItemChanged(selectedPosition);
+              }
+            });
+
     view.findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        new AddNoteBottomSheetDialogFragment()
+          AddNoteBottomSheetDialogFragment.addInstance()
                 .show(getParentFragmentManager(), "AddNoteBottomSheetDialogFragment");
       }
     });
-    ProgressBar progressBar = view.findViewById(R.id.progress);
+    progressBar = view.findViewById(R.id.progress);
     progressBar.setVisibility(View.VISIBLE);
     Dependencies.NOTES_CARD_REPOSITORY.getAll(new Callback<List<NoteCard>>() {
       @Override
@@ -135,7 +169,38 @@ public class NotesListCardFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
       }
     });
+  }
 
+  @Override
+  public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+    super.onCreateContextMenu(menu, v, menuInfo);
+    MenuInflater menuInflater = requireActivity().getMenuInflater();
+    menuInflater.inflate(R.menu.menu_notes_context, menu);
+  }
 
+  @Override
+  public boolean onContextItemSelected(@NonNull MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_delete:
+        progressBar.setVisibility(View.VISIBLE);
+        Dependencies.NOTES_CARD_REPOSITORY.removeNote(selectedNote, new Callback<Void>() {
+          @Override
+          public void onSuccess(Void data) {
+            progressBar.setVisibility(View.GONE);
+            notesCardAdapter.removeNote(selectedNote);
+            notesCardAdapter.notifyItemRemoved(selectedPosition);
+
+          }
+          @Override
+          public void onError(Throwable exception) {
+          }
+        });
+        return true;
+      case R.id.action_edit:
+        AddNoteBottomSheetDialogFragment.editInstance(selectedNote)
+                .show(getParentFragmentManager(), "AddNoteBottomSheetDialogFragment");
+        return true;
+    }
+    return super.onContextItemSelected(item);
   }
 }

@@ -29,15 +29,10 @@ public class AddNoteBottomSheetDialogFragment extends BottomSheetDialogFragment 
   }
 
   public static AddNoteBottomSheetDialogFragment editInstance(NoteCard noteCard) {
-
     Bundle args = new Bundle();
-
     args.putParcelable(ARG_NOTE, noteCard);
-
     AddNoteBottomSheetDialogFragment fragment = new AddNoteBottomSheetDialogFragment();
-
     fragment.setArguments(args);
-
     return fragment;
   }
 
@@ -49,36 +44,66 @@ public class AddNoteBottomSheetDialogFragment extends BottomSheetDialogFragment 
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
     super.onViewCreated(view, savedInstanceState);
+    NoteCard noteCardToEdit = null;
+    if (getArguments() != null && getArguments().containsKey(ARG_NOTE)) {
+      noteCardToEdit = getArguments().getParcelable(ARG_NOTE);
 
+    }
     EditText title = view.findViewById(R.id.title);
-
     EditText message = view.findViewById(R.id.messages);
-
+    if (noteCardToEdit != null) {
+      title.setText(noteCardToEdit.getTitle());
+      message.setText(noteCardToEdit.getDescription());
+    }
     Button btnSave = view.findViewById(R.id.save);
-
+    NoteCard finalNoteCardToEdit = noteCardToEdit;
     btnSave.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         btnSave.setEnabled(false);
-        Dependencies.NOTES_CARD_REPOSITORY.addNote(title.getText().toString(), message.getText().toString(), new Callback<NoteCard>() {
+        if (finalNoteCardToEdit != null) {
+          Dependencies.NOTES_CARD_REPOSITORY.updateNote(finalNoteCardToEdit, title.getText().toString(), message.getText().toString(), new Callback<NoteCard>() {
+            @Override
+            public void onSuccess(NoteCard data) {
+              Bundle bundle = new Bundle();
+              bundle.putParcelable(ARG_NOTE, data);
 
-          @Override
-          public void onSuccess(NoteCard data) {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(ARG_NOTE, data);
-            getParentFragmentManager().setFragmentResult(UPDATE_KEY_RESULT, bundle);
-            btnSave.setEnabled(true);
-            dismiss();
-          }
+              getParentFragmentManager().setFragmentResult(UPDATE_KEY_RESULT, bundle);
 
-          @Override
-          public void onError(Throwable exception) {
-            btnSave.setEnabled(true);
-          }
-        });
+              btnSave.setEnabled(true);
 
+              dismiss();
+
+            }
+
+            @Override
+            public void onError(Throwable exception) {
+              btnSave.setEnabled(true);
+            }
+          });
+
+        } else {
+          Dependencies.NOTES_CARD_REPOSITORY.addNote(title.getText().toString(), message.getText().toString(), new Callback<NoteCard>() {
+
+            @Override
+            public void onSuccess(NoteCard data) {
+              Bundle bundle = new Bundle();
+              bundle.putParcelable(ARG_NOTE, data);
+
+              getParentFragmentManager().setFragmentResult(ADD_KEY_RESULT, bundle);
+
+              btnSave.setEnabled(true);
+
+              dismiss();
+            }
+
+            @Override
+            public void onError(Throwable exception) {
+              btnSave.setEnabled(true);
+            }
+          });
+        }
       }
     });
   }
