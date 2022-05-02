@@ -7,16 +7,15 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class NoteCard implements Parcelable {
 
   private String id;
 
-  private final @StringRes
-  int title; // заголовок
+  private String title; // заголовок
 
-  private final @StringRes
-  int description; // описание
+  private String description; // описание
 
   private final @DrawableRes
   int picture; // изображение
@@ -24,7 +23,7 @@ public class NoteCard implements Parcelable {
   private Date creationDate; // дата создания
 
 
-  public NoteCard(String id, int title, int description, int picture, Date creationDate) {
+  public NoteCard(String id, String title, String description, int picture, Date creationDate) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -35,8 +34,8 @@ public class NoteCard implements Parcelable {
 
   protected NoteCard(Parcel in) {
     id = in.readString();
-    title = in.readInt();
-    description = in.readInt();
+    title = in.readString();
+    description = in.readString();
     picture = in.readInt();
   }
 
@@ -56,11 +55,11 @@ public class NoteCard implements Parcelable {
     return id;
   }
 
-  public int getTitle() {
+  public String getTitle() {
     return title;
   }
 
-  public int getDescription() {
+  public String getDescription() {
     return description;
   }
 
@@ -80,8 +79,21 @@ public class NoteCard implements Parcelable {
   @Override
   public void writeToParcel(Parcel parcel, int i) {
     parcel.writeString(id);
-    parcel.writeInt(title);
-    parcel.writeInt(description);
+    parcel.writeString(title);
+    parcel.writeString(description);
     parcel.writeInt(picture);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NoteCard noteCard = (NoteCard) o;
+    return picture == noteCard.picture && Objects.equals(id, noteCard.id) && Objects.equals(title, noteCard.title) && Objects.equals(description, noteCard.description) && Objects.equals(creationDate, noteCard.creationDate);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, title, description, picture, creationDate);
   }
 }

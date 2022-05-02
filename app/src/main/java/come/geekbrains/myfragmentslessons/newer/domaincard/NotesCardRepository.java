@@ -4,5 +4,11 @@ import java.util.List;
 
 public interface NotesCardRepository {
 
-  List<NoteCard> getAll();
+  void getAll(Callback<List<NoteCard>> callback);
+
+  void addNote(String title, String message, Callback<NoteCard> callback);
+
+  void removeNote(NoteCard note, Callback<Void> callback);
+
+  void updateNote(NoteCard note, String title, String message, Callback<NoteCard> callback);
 }

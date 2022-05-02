@@ -11,9 +11,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-
 import come.geekbrains.myfragmentslessons.R;
-import come.geekbrains.myfragmentslessons.domain.ToolbarHolder;
+import come.geekbrains.myfragmentslessons.newer.domaincard.ToolbarHolder;
 import come.geekbrains.myfragmentslessons.newer.uicard.MyDialogFragment;
 
 public class MainActivity extends AppCompatActivity implements ToolbarHolder {
