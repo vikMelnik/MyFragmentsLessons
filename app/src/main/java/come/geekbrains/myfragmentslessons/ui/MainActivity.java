@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import come.geekbrains.myfragmentslessons.R;
 import come.geekbrains.myfragmentslessons.domain.ToolbarHolder;
+import come.geekbrains.myfragmentslessons.newer.uicard.MyDialogFragment;
 
 public class MainActivity extends AppCompatActivity implements ToolbarHolder {
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements ToolbarHolder {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
     drawerLayout = findViewById(R.id.drawer);
     NavigationView navigationView = findViewById(R.id.navigation);
     navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

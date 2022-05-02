@@ -1,4 +1,4 @@
-package come.geekbrains.myfragmentslessons.ui;
+package come.geekbrains.myfragmentslessons.newer.uicard;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,17 +11,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import come.geekbrains.myfragmentslessons.R;
-import come.geekbrains.myfragmentslessons.domain.Note;
-import come.geekbrains.myfragmentslessons.domain.ToolbarHolder;
+import come.geekbrains.myfragmentslessons.newer.domaincard.NoteCard;
+import come.geekbrains.myfragmentslessons.ui.DescriptionFragment;
 
 public class NoteDetailFragment extends Fragment {
 
+  private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("dd:MM, HH:mm", Locale.getDefault());
   private static final String ARG_NOTE = "ARG_NOTE";
 
-  public static NoteDetailFragment newInstance(Note note) {
+  public static NoteDetailFragment newInstance(NoteCard noteCard) {
     Bundle args = new Bundle();
-    args.putParcelable(ARG_NOTE, note);
+    args.putParcelable(ARG_NOTE, noteCard);
     NoteDetailFragment fragment = new NoteDetailFragment();
     fragment.setArguments(args);
     return fragment;
@@ -65,24 +69,24 @@ public class NoteDetailFragment extends Fragment {
 
     });
     getParentFragmentManager()
-            .setFragmentResultListener(NotesListFragment.NOTES_CLICKED_KEY, getViewLifecycleOwner()
+            .setFragmentResultListener(NotesListCardFragment.NOTES_CLICKED_KEY, getViewLifecycleOwner()
                     , new FragmentResultListener() {
                       @Override
                       public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                        Note note = result.getParcelable(NotesListFragment.SELECTED_NOTE);
-                        show(note);
+                        NoteCard noteCard = result.getParcelable(NotesListCardFragment.SELECTED_NOTE);
+                        show(noteCard);
                       }
                     });
     if (getArguments() != null && getArguments().containsKey(ARG_NOTE)) {
-      Note note = getArguments().getParcelable(ARG_NOTE);
-      show(note);
+      NoteCard noteCard = getArguments().getParcelable(ARG_NOTE);
+      show(noteCard);
     }
   }
 
-  private void show(Note note) {
-    title.setText(note.getTitle());
-    creationDate.setText(note.getCreationDate());
-    description.setText(note.getDescription());
+  private void show(NoteCard noteCard) {
+    title.setText(noteCard.getTitle());
+    creationDate.setText(mSimpleDateFormat.format(noteCard.getCreationDate()));
+    description.setText(noteCard.getDescription());
   }
 
   private void newCreateFragment(Fragment fragment) {

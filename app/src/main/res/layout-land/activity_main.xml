@@ -50,7 +50,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/fragment_details_container"
-        android:name="come.geekbrains.myfragmentslessons.ui.NoteDetailFragment"
+        android:name="come.geekbrains.myfragmentslessons.newer.uicard.NoteDetailFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
