@@ -74,7 +74,7 @@ public class InMemoryCardNotesRepository implements NotesCardRepository{
         }
 
         NoteCard noteCard = new NoteCard(UUID.randomUUID().toString(),title,message,
-                R.drawable.boats, new Date());
+                R.drawable.birds, new Date());
 
         data.add(noteCard);
 

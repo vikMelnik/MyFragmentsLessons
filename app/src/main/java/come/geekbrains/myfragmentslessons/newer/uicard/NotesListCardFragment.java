@@ -63,17 +63,8 @@ public class NotesListCardFragment extends Fragment {
             Toast.makeText(requireContext(), "sorted", Toast.LENGTH_SHORT).show();
             return true;
           case R.id.action_add:
-            Dependencies.NOTES_CARD_REPOSITORY.addNote("Title 8", "Descriptions 8", new Callback<NoteCard>() {
-
-              @Override
-              public void onSuccess(NoteCard data) {
-              }
-
-              @Override
-              public void onError(Throwable exception) {
-              }
-            });
-            Toast.makeText(requireContext(), "add", Toast.LENGTH_SHORT).show();
+            AddNoteBottomSheetDialogFragment.addInstance()
+                    .show(getParentFragmentManager(), "AddNoteBottomSheetDialogFragment");
             return true;
           case R.id.action_share:
             Toast.makeText(requireContext(), "share", Toast.LENGTH_SHORT).show();
@@ -156,7 +147,7 @@ public class NotesListCardFragment extends Fragment {
     });
     progressBar = view.findViewById(R.id.progress);
     progressBar.setVisibility(View.VISIBLE);
-    Dependencies.NOTES_CARD_REPOSITORY.getAll(new Callback<List<NoteCard>>() {
+    Dependencies.getNotesCardRepository(requireContext()).getAll(new Callback<List<NoteCard>>() {
       @Override
       public void onSuccess(List<NoteCard> data) {
         notesCardAdapter.setData(data);
@@ -183,7 +174,7 @@ public class NotesListCardFragment extends Fragment {
     switch (item.getItemId()) {
       case R.id.action_delete:
         progressBar.setVisibility(View.VISIBLE);
-        Dependencies.NOTES_CARD_REPOSITORY.removeNote(selectedNote, new Callback<Void>() {
+        Dependencies.getNotesCardRepository(requireContext()).removeNote(selectedNote, new Callback<Void>() {
           @Override
           public void onSuccess(Void data) {
             progressBar.setVisibility(View.GONE);
