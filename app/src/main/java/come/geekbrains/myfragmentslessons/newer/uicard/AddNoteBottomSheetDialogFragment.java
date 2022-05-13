@@ -63,7 +63,7 @@ public class AddNoteBottomSheetDialogFragment extends BottomSheetDialogFragment 
       public void onClick(View view) {
         btnSave.setEnabled(false);
         if (finalNoteCardToEdit != null) {
-          Dependencies.NOTES_CARD_REPOSITORY.updateNote(finalNoteCardToEdit, title.getText().toString(), message.getText().toString(), new Callback<NoteCard>() {
+          Dependencies.getNotesCardRepository(requireContext()).updateNote(finalNoteCardToEdit, title.getText().toString(), message.getText().toString(), new Callback<NoteCard>() {
             @Override
             public void onSuccess(NoteCard data) {
               Bundle bundle = new Bundle();
@@ -84,7 +84,7 @@ public class AddNoteBottomSheetDialogFragment extends BottomSheetDialogFragment 
           });
 
         } else {
-          Dependencies.NOTES_CARD_REPOSITORY.addNote(title.getText().toString(), message.getText().toString(), new Callback<NoteCard>() {
+          Dependencies.getNotesCardRepository(requireContext()).addNote(title.getText().toString(), message.getText().toString(), new Callback<NoteCard>() {
 
             @Override
             public void onSuccess(NoteCard data) {
